@@ -1,0 +1,21 @@
+ version: '2'
+ services:
+   db:
+     image: postgres
+   node:
+     build:
+       context: .
+       dockerfile: Dockerfile-node
+     command: /usr/local/bin/node
+     volumes:
+       - .:/code
+   django-react:
+     build: .
+     command: python manage.py runserver 0.0.0.0:8000
+     volumes:
+       - .:/code
+     ports:
+       - "${PORT}:8000"
+     depends_on:
+       - node
+       - db
