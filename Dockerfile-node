@@ -1,7 +1,0 @@
-FROM node:boron
-
-RUN mkdir /code
-WORKDIR /code
-RUN npm init --yes
-RUN npm install --save-dev react webpack webpack-bundle-tracker babel babel-core babel-loader
-ADD . /code/

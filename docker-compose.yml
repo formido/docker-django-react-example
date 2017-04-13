@@ -3,17 +3,18 @@
    db:
      image: postgres
    node:
-     build:
-       context: .
-       dockerfile: Dockerfile-node
-     command: /usr/local/bin/node
+     build: "react/"
+     entrypoint: sh entrypoint.sh
+     working_dir: /home/node
+     ports:
+       - 8101:3000
      volumes:
-       - .:/code
-   django-react:
-     build: .
+       - ./react:/home/node
+   django:
+     build: "django/"
      command: python manage.py runserver 0.0.0.0:8000
      volumes:
-       - .:/code
+       - ./django:/code
      ports:
        - "${PORT}:8000"
      depends_on:
